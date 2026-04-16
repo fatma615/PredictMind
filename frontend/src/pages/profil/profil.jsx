@@ -1,11 +1,17 @@
+
 import React, { useState, useRef } from "react";
 import "./Profil.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Profil = () => {
+ const Profil = () => {
   const [editMode, setEditMode] = useState(false);
 
   const fileInputRef = useRef(null);
-
+  const [showPw, setShowPw] = useState({
+  current: false,
+  new: false,
+  confirm: false,
+});
   const [user, setUser] = useState({
     nom: "Belhassen",
     prenom: "Ahmed",
@@ -14,6 +20,9 @@ const Profil = () => {
     dateNaissance: "14 mai 1990",
     role: "Administrateur",
     photo: null,
+    password: "fder",
+    newPassword: "",
+    confirmPassword: "",
   });
 
   // ouvrir galerie
@@ -42,7 +51,23 @@ const Profil = () => {
       [e.target.name]: e.target.value,
     });
   };
+const togglePw = (field) => {
+  setShowPw((prev) => ({
+    ...prev,
+    [field]: !prev[field],
+  }));
+};
+const handleSave = () => {
 
+  if (user.newPassword !== user.confirmPassword) {
+    alert("Mot de passe incorrect");
+    return;
+  }
+
+  console.log("Data:", user);
+
+  setEditMode(false);
+};
   return (
     <div className="profile-container">
 
@@ -68,13 +93,20 @@ const Profil = () => {
           <p>{user.email}</p>
           <span className="badge">{user.role}</span>
         </div>
-
         <button
-          className="btn-edit"
-          onClick={() => setEditMode(!editMode)}
-        >
-          {editMode ? " Sauvegarder" : " Modifier"}
-        </button>
+        className="btn-edit"
+        onClick={() => {
+        if (editMode) {
+            handleSave();} // sauvegarde
+            //  
+        else {
+            setEditMode(true); // entrer en mode édition
+    }
+  }}
+>
+  {editMode ? "Sauvegarder" : "Modifier"}
+</button>
+        
 
         {/* hidden input file */}
         <input
@@ -141,6 +173,62 @@ const Profil = () => {
               <p>{user.email}</p>
             )}
           </div>
+          {editMode && (
+  <div className="password-grid">
+
+    {/* Current */}
+    <div className="pw-box">
+      <label>Mot de passe actuel</label>
+      <div className="pw-input">
+        <input
+          type={showPw.current ? "text" : "password"}
+          name="password"
+          value={user.password}
+          onChange={handleChange}
+          placeholder="••••••••"
+        />
+        <span onClick={() => togglePw("current")} className="eye">
+          {showPw.current ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+    </div>
+
+    {/* New */}
+    <div className="pw-box">
+      <label>Nouveau mot de passe</label>
+      <div className="pw-input">
+        <input
+          type={showPw.new ? "text" : "password"}
+          name="newPassword"
+          value={user.newPassword}
+          onChange={handleChange}
+          placeholder="••••••••"
+        />
+        <span onClick={() => togglePw("new")} className="eye">
+          {showPw.new ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+    </div>
+
+    {/* Confirm */}
+    <div className="pw-box">
+      <label>Confirmer</label>
+      <div className="pw-input">
+        <input
+          type={showPw.confirm ? "text" : "password"}
+          name="confirmPassword"
+          value={user.confirmPassword}
+          onChange={handleChange}
+          placeholder="••••••••"
+        />
+        <span onClick={() => togglePw("confirm")} className="eye">
+          {showPw.confirm ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+    </div>
+
+  </div>
+)}
 
         </div>
       </div>
@@ -149,4 +237,4 @@ const Profil = () => {
   );
 };
 
-export default Profil;
+export default Profil; 

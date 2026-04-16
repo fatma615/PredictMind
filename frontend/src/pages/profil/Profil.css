@@ -1,120 +1,184 @@
+/* PAGE CONTAINER */
 .profile-container {
-  padding: 30px;
-  background: #f5f6fa;
-  min-height: 100vh;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
 }
 
+/* CARD */
 .profile-card {
-  background: white;
+  background: #fff;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
   margin-bottom: 20px;
 }
 
-/* HEADER CARD */
-.header {
+/* HEADER */
+.profile-card.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
+/* AVATAR */
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: #e6e6ff;
+  background: #4a90e2;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 22px;
   font-weight: bold;
-  color: #3f3fff;
-  font-size: 18px;
+  overflow: hidden;
+  cursor: default;
 }
 
-.info {
-  flex: 1;
-  margin-left: 15px;
+.avatar.editable {
+  cursor: pointer;
+  border: 3px solid #4a90e2;
 }
 
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFO */
 .info h2 {
   margin: 0;
+  font-size: 20px;
 }
 
 .info p {
-  margin: 3px 0;
-  color: gray;
-  font-size: 14px;
+  margin: 5px 0;
+  color: #666;
 }
 
 .badge {
   display: inline-block;
-  background: #eef0ff;
-  color: #3f3fff;
-  padding: 3px 10px;
-  border-radius: 10px;
+  padding: 4px 10px;
+  background: #e6f0ff;
+  color: #2b6cb0;
+  border-radius: 20px;
   font-size: 12px;
   margin-top: 5px;
 }
 
 /* BUTTON */
 .btn-edit {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  background: white;
+  padding: 8px 14px;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
+  background: #4a90e2;
+  color: white;
+  transition: 0.3s;
 }
 
 .btn-edit:hover {
-  background: #f0f0f0;
+  background: #3578c7;
 }
 
-/* GRID DETAILS */
+/* GRID */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   margin-top: 15px;
 }
 
-.grid div {
-  background: #fafafa;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.grid label {
-  font-size: 12px;
-  color: gray;
-}
-
-.full {
+.grid .full {
   grid-column: span 2;
 }
-/* IMAGE EDIT MODE ONLY */
-.avatar {
-  cursor: pointer;
-  position: relative;
+
+/* LABEL */
+label {
+  font-size: 13px;
+  color: #777;
+  display: block;
+  margin-bottom: 5px;
 }
 
-/* وقت التعديل */
-.avatar.editable {
-  outline: 2px solid #3f3fff;
-  outline-offset: 3px;
-  cursor: pointer;
+/* TEXT */
+p {
+  margin: 0;
+  font-size: 15px;
+  color: #222;
 }
 
-/* hover خفيف */
-.avatar.editable:hover {
-  transform: scale(1.05);
+/* INPUT */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
   transition: 0.2s;
 }
 
-/* الصورة داخل avatar */
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+}
+
+/* PASSWORD GRID */
+.password-grid {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* PASSWORD BOX */
+.pw-box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* PASSWORD INPUT */
+.pw-input {
+  position: relative;
+}
+
+.pw-input input {
+  padding-right: 40px;
+}
+
+/* EYE ICON */
+.eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .profile-card.header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid .full {
+    grid-column: span 1;
+  }
+
+  .password-grid {
+    grid-template-columns: 1fr;
+  }
 }
